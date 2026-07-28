@@ -1088,144 +1088,64 @@ export default function App() {
 
       {/* ── SUBSCRIBE / ORDER MODAL ── */}
       {isOrderModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-          <div className="neon-glass-strong bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 border-2 border-purple-300 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button
-              onClick={() => {
-                setIsOrderModalOpen(false)
-                setOrderSubmitted(false)
-              }}
-              className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold hover:bg-slate-200"
-            >
-              ✕
-            </button>
-
-            {!orderSubmitted ? (
-              <div>
-                <div className="flex items-center gap-2 mb-2">
-                  <IconZap className="w-6 h-6 text-purple-600" />
-                  <h3 className="text-xl font-extrabold text-slate-900">
-                    18 Oylik Google AI Pro Obunasi
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+          <div className="neon-glass-strong bg-white rounded-3xl max-w-2xl w-full border-2 border-purple-300 shadow-2xl relative flex flex-col" style={{ maxHeight: '92vh' }}>
+            
+            {/* Modal Header */}
+            <div className="flex items-center justify-between px-5 sm:px-6 pt-5 pb-4 border-b border-purple-100 flex-shrink-0">
+              <div className="flex items-center gap-2.5 pr-8">
+                <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-violet-600 to-sky-500 flex items-center justify-center flex-shrink-0">
+                  <IconZap className="w-4 h-4 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-base sm:text-lg font-extrabold text-slate-900 leading-tight">
+                    18 Oylik Obunaga Ariza Topshiring
                   </h3>
-                </div>
-                <p className="text-xs text-slate-500 font-medium mb-6">
-                  Bir martalik to'lov · 80% Tejash · 5 TB Drive xotirasi kiritilgan
-                </p>
-
-                <form onSubmit={handleOrderSubmit} className="space-y-4">
-                  {/* Name Input */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                      Ismingiz:
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Masalan: Azizbek Karimov"
-                      value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-purple-200 text-slate-900 font-medium text-sm focus:outline-none focus:border-purple-600 focus:bg-white"
-                    />
-                  </div>
-
-                  {/* Phone / Telegram Input */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                      Telegram / Telefon Raqam:
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="@Tim1y yoki +998 90 097 97 87"
-                      value={customerPhone}
-                      onChange={(e) => setCustomerPhone(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-purple-200 text-slate-900 font-medium text-sm focus:outline-none focus:border-purple-600 focus:bg-white"
-                    />
-                  </div>
-
-                  {/* Payment Method Selector */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-2">
-                      To'lov Usulini Tanlang:
-                    </label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[
-                        { id: 'click', label: 'Click', icon: <IconPhone className="w-4 h-4" /> },
-                        { id: 'payme', label: 'Payme', icon: <IconPhone className="w-4 h-4" /> },
-                        { id: 'uzcard', label: 'Uzcard', icon: <IconCreditCard className="w-4 h-4" /> },
-                        { id: 'humo', label: 'Humo', icon: <IconCreditCard className="w-4 h-4" /> },
-                        { id: 'usdt', label: 'USDT', icon: <IconSparkles className="w-4 h-4" /> },
-                      ].map((pm) => (
-                        <button
-                          type="button"
-                          key={pm.id}
-                          onClick={() => setSelectedPayment(pm.id as any)}
-                          className={`p-2.5 rounded-xl border text-xs font-bold flex flex-col items-center gap-1 transition-all ${
-                            selectedPayment === pm.id
-                              ? 'bg-purple-100 border-purple-600 text-purple-900 shadow-sm'
-                              : 'bg-slate-50 border-slate-200 text-slate-600 hover:bg-slate-100'
-                          }`}
-                        >
-                          {pm.icon}
-                          <span>{pm.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="p-3 bg-purple-50 rounded-xl border border-purple-200 text-xs text-purple-900 flex justify-between items-center font-bold">
-                    <span>Obuna Davomiyligi:</span>
-                    <span className="text-purple-700 font-extrabold">18 Oy (To'liq)</span>
-                  </div>
-
-                  <button
-                    type="submit"
-                    className="w-full neon-glow-btn py-4 rounded-xl font-extrabold text-base flex items-center justify-center gap-2 cursor-pointer mt-4"
-                  >
-                    <IconZap className="w-5 h-5 text-amber-300" />
-                    <span>Buyurtmani Tasdiqlash</span>
-                  </button>
-                </form>
-              </div>
-            ) : (
-              /* SUCCESS SCREEN */
-              <div className="text-center py-4 space-y-4">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto shadow-inner">
-                  <IconCheck className="w-8 h-8" />
-                </div>
-                <h3 className="text-2xl font-black text-slate-900">
-                  Buyurtma Qabul Qilindi!
-                </h3>
-                <p className="text-sm text-slate-600 font-medium leading-relaxed">
-                  Rahmat, <span className="font-bold text-slate-900">{customerName}</span>! Sizning so'rovingiz muvaffaqiyatli saqlandi.
-                </p>
-                <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs text-slate-600 space-y-1 text-left">
-                  <p><strong>To'lov Usuli:</strong> {selectedPayment.toUpperCase()}</p>
-                  <p><strong>Aloqa:</strong> {customerPhone}</p>
-                  <p><strong>Holat:</strong> Operator ko'rib chiqmoqda (5-10 daqiqa)</p>
-                </div>
-                <div className="pt-2 flex flex-col gap-2">
-                  <a
-                    href="https://t.me/Tim1y"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="neon-glow-btn py-3.5 rounded-xl font-bold text-sm flex items-center justify-center gap-2"
-                  >
-                    <IconTelegram className="w-4 h-4" />
-                    <span>Telegram Admin Bilan Bog'lanish (@Tim1y)</span>
-                  </a>
-                  <button
-                    onClick={() => {
-                      setIsOrderModalOpen(false)
-                      setOrderSubmitted(false)
-                    }}
-                    className="neon-glow-btn-secondary py-3 rounded-xl font-bold text-sm"
-                  >
-                    Yopish
-                  </button>
+                  <p className="text-[11px] text-slate-500 font-medium">
+                    Bir martalik to'lov · 80% Tejash · 5 TB Drive
+                  </p>
                 </div>
               </div>
-            )}
+              <button
+                onClick={() => setIsOrderModalOpen(false)}
+                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 text-slate-600 flex items-center justify-center font-bold hover:bg-slate-200 transition-colors cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Google Form Embed */}
+            <div className="flex-1 overflow-hidden" style={{ minHeight: 0 }}>
+              <iframe
+                src="https://docs.google.com/forms/d/e/1FAIpQLSdHdBjvr-NGo_z43Hl-dP2rUOvNvrlIxCaX1ZhzQmY3Js-hsg/viewform?embedded=true"
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                marginHeight={0}
+                marginWidth={0}
+                title="Google AI Pro Obuna Formasi"
+                style={{ display: 'block', minHeight: '520px' }}
+              >
+                Yuklanmoqda...
+              </iframe>
+            </div>
+
+            {/* Footer link */}
+            <div className="px-5 sm:px-6 py-3 border-t border-purple-100 flex items-center justify-between flex-shrink-0 bg-purple-50/60 rounded-b-3xl">
+              <p className="text-[11px] text-slate-500 font-medium">Forma yuklanmasa →</p>
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdHdBjvr-NGo_z43Hl-dP2rUOvNvrlIxCaX1ZhzQmY3Js-hsg/viewform?usp=publish-editor"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-bold text-purple-700 hover:text-purple-900 transition-colors"
+              >
+                <span>Yangi oynada ochish</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                </svg>
+              </a>
+            </div>
+
           </div>
         </div>
       )}
